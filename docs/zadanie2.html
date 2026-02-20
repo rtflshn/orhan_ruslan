@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма опроса</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+        }
+
+        .description {
+            background-color: #e8f4f8;
+            padding: 10px;
+            border-left: 3px solid #007bff;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            margin-top: 5px;
+        }
+
+        .radio-item,
+        .checkbox-item {
+            margin-bottom: 5px;
+        }
+
+        .radio-item label,
+        .checkbox-item label {
+            display: inline;
+            font-weight: normal;
+            margin-left: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .required {
+            color: red;
+        }
+
+        .required-note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Опрос</h1>
+        
+        <div class="description">
+            Пожалуйста, ответьте на несколько вопросов. Это поможет нам стать лучше.
+        </div>
+
+        <form id="surveyForm">
+            <div class="form-group">
+                <label>Имя <span class="required">*</span></label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email <span class="required">*</span></label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label>Возраст</label>
+                <input type="number" id="age" min="1" max="100">
+            </div>
+
+            <div class="form-group">
+                <label>Как часто пользуетесь? <span class="required">*</span></label>
+                <select id="frequency" required>
+                    <option value="">Выберите</option>
+                    <option value="daily">Каждый день</option>
+                    <option value="weekly">Раз в неделю</option>
+                    <option value="monthly">Раз в месяц</option>
+                    <option value="rarely">Редко</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Оценка <span class="required">*</span></label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" name="rating" value="5" required> 
+                        <label>Отлично</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="rating" value="4"> 
+                        <label>Хорошо</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="rating" value="3"> 
+                        <label>Нормально</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" name="rating" value="2"> 
+                        <label>Плохо</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Что вам нравится?</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="likes" value="design"> 
+                        <label>Дизайн</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="likes" value="functionality"> 
+                        <label>Функционал</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="likes" value="support"> 
+                        <label>Поддержка</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="likes" value="price"> 
+                        <label>Цена</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Комментарии</label>
+                <textarea id="comments" rows="4" placeholder="Напишите ваши пожелания..."></textarea>
+            </div>
+
+            <button type="submit">Отправить</button>
+            
+            <div class="required-note">
+                * - обязательные поля
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('surveyForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var frequency = document.getElementById('frequency').value;
+            var rating = document.querySelector('input[name="rating"]:checked');
+            
+            if (name && email && frequency && rating) {
+                alert('Спасибо! Форма отправлена.');
+                this.reset();
+            } else {
+                alert('Заполните все обязательные поля!');
+            }
+        };
+    </script>
+</body>
+</html>
